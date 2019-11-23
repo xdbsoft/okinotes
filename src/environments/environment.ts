@@ -1,9 +1,26 @@
+import { AuthConfig } from 'angular-oauth2-oidc';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  authConfig: {
+    issuer: 'http://127.0.0.1:5556/dex',
+    redirectUri: window.location.origin + '/index.html',
+    clientId: 'notes',
+    scope: 'openid profile email',
+    strictDiscoveryDocumentValidation: false,
+    requireHttps : false,
+    showDebugInformation: true,
+    silentRefreshShowIFrame: true
+  },
+  apiConfig: {
+    url: 'http://localhost:9889/',
+    collectionName: 'notes',
+    aliasName: 'alias'
+  }
 };
 
 /*
