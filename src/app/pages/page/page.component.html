@@ -1,0 +1,57 @@
+<div class="panel_tools float-left">
+  <a [routerLink]="['/home']"><span class="oi oi-home"></span></a>
+</div>
+<h1>{{page.title}}</h1>
+
+<div *ngIf="page.templateID === 'micro-blog'" class="container">
+
+  <div class="card-columns">
+
+    <div class="card" *ngIf="editable">
+      <div class="card-body">
+        <form [formGroup]="newItemForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+          <div class="form-group">
+            <input type="text" class="form-control" [class.is-invalid]="title.status=='INVALID' && (title.dirty || title.touched)" 
+              id="inputTitle" placeholder="Title" formControlName="title" required>
+            <div class="invalid-feedback">
+                Title is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Content" formControlName="content"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="newItemForm.status!=='VALID'">{{submitText}}</button>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="card" *ngFor="let item of items">
+      <div class="card-body">
+        <h5 class="card-title">{{item.title}}</h5>
+        <markdown [data]="item.content"></markdown>
+        <p class="card-text"><small class="text-muted">{{item.lastModificationDate | date}}</small></p>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Actions" *ngIf="editable">
+          <button (click)="editItem(item)" class="btn btn-outline-secondary"><span class="oi oi-pencil"></span> Edit</button>
+          <button (click)="deleteItem(item)" class="btn btn-outline-danger"><span class="oi oi-trash"></span> Delete</button>
+        </div>
+    </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div *ngIf="page.templateID === 'url-list'" class="container">
+  <div class="panel">
+    <table class="table">
+      <thead *ngIf="editable">
+        <tr app-url-item-creator (submitItem)="createItem($event)"></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items" app-url-item-editable [item]="item" [editable]="editable" (save)="saveItem($event)" (delete)="deleteItem($event)"></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

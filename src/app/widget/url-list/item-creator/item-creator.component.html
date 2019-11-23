@@ -1,0 +1,31 @@
+<ng-container [formGroup]="newItemForm">
+<td>
+  <label class="sr-only" for="inputURL">URL</label>
+  <div class="input-group">
+    <div class="input-group-prepend">
+    <div class="input-group-text"><span class="oi oi-link-intact"></span></div>
+    </div>
+    <input type="text" class="form-control" id="inputURL" 
+      [class.is-invalid]="url.status=='INVALID' && (url.dirty || url.touched)"
+      formControlName="url" 
+      placeholder="URL">
+    <div class="invalid-feedback">
+        URL is required.
+    </div>
+  </div>
+</td>
+<td>
+  <label class="sr-only" for="inputTitle">Title</label>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text"><span class="oi oi-text"></span></div>
+    </div>
+    <input type="text" class="form-control" id="inputTitle" 
+      formControlName="title" 
+      placeholder="Title">
+  </div>
+</td>
+<td>
+  <button (click)="onSubmitNewItem()" class="btn btn-primary" [disabled]="newItemForm.status!=='VALID'">Add</button>
+</td>
+</ng-container>

@@ -1,0 +1,18 @@
+<div class="card-columns">
+  <div class="card border-primary"  *ngFor="let p of pages.slice((page-1)*pageSize, page*pageSize)">
+    <div class="card-body" *ngIf="!p.edited">
+      <h5 class="card-title">{{p.title}} <span *ngIf="p.policy === 'PRIVATE'" class="float-right oi oi-lock-locked"></span></h5>
+      <p class="card-text"><small class="text-muted">{{p.lastModificationDate | date}}</small></p>
+      <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+        <a [routerLink]="['/p', alias, p.id]" class="btn btn-outline-primary"><span class="oi oi-media-play"></span> View</a>
+        <button (click)="onEdit(p)" class="btn btn-outline-secondary"><span class="oi oi-pencil"></span> Edit</button>
+        <button (click)="deletePage(p.id)" class="btn btn-outline-danger"><span class="oi oi-trash"></span> Delete</button>
+      </div>
+    </div>
+    <div class="card-body" *ngIf="p.edited">
+      <app-page-editor [page]="p" (submitPage)="onEditSave($event)" (cancel)="onEditCancel($event)"></app-page-editor>
+    </div>
+  </div>
+</div>
+
+<ngb-pagination *ngIf="pages.length>pageSize" class="d-flex justify-content-center"  [collectionSize]="pages.length" [(page)]="page" [pageSize]="pageSize" [maxSize]="5" aria-label="Pagination"></ngb-pagination>

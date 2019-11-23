@@ -1,0 +1,26 @@
+<div class="container">
+  <app-user-navbar [user]=user (logout)="onLogout()"></app-user-navbar>
+
+  <div class="panel" *ngIf="!user || !pages"> 
+    <h1><span class="brand">Okinotes: note and share in seconds</span></h1>
+    <p>Create a page, add content, share publicly or with colleagues and friends. Your page may be a micro-blog, a todo-list or whatever: we have a template for each use case. 
+        Add content from your desktop browser, mobile browser, or using one of our mobile apps.</p>
+    <p>This application is open-source. Deploy your own instance or contribute to make it even better.</p>
+  </div>
+
+  <div class="panel" *ngIf="!user">
+    <h2>Why you'll love Okinotes.</h2>
+    <ul>
+      <li><strong>User friendly</strong>: multiple templates, advanced customisation</li>
+      <li><strong>Efficient</strong>: no ads, keyboard shortcuts</li>
+      <li><strong>Social</strong>: share your creation</li>
+    </ul>
+  </div>
+
+  <div class="panel" *ngIf="pages && user">
+    <h2>My notes</h2>
+    <app-pages-list [pages]="pages" [userId]="user.id" [alias]="user.alias"></app-pages-list>
+  </div>
+  
+  <app-footer></app-footer>
+</div>

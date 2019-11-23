@@ -1,0 +1,47 @@
+<ng-container>
+  <ng-container *ngIf="!edited">
+    <td colspan="2">
+      <a href="{{item.url}}" target="_blank">{{item.title || item.url}} </a> <span class="badge badge-info float-right">{{item.lastModificationDate | date}} </span>
+    </td>
+    <td>
+      <div class="btn-group btn-group-sm" role="group" aria-label="Actions" *ngIf="editable">
+        <button (click)="edited=true" class="btn btn-outline-secondary"><span class="oi oi-pencil"></span></button>
+        <button (click)="deleteItem()" class="btn btn-outline-danger"><span class="oi oi-trash"></span></button>
+      </div>
+    </td>
+  </ng-container>
+  <ng-container *ngIf="edited" [formGroup]="editItemForm">
+    <td>
+      <label class="sr-only" for="inputURL">URL</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+        <div class="input-group-text"><span class="oi oi-link-intact"></span></div>
+        </div>
+        <input type="text" class="form-control" id="inputURL" 
+          [class.is-invalid]="url.status=='INVALID' && (url.dirty || url.touched)"
+          formControlName="url" 
+          placeholder="URL">
+        <div class="invalid-feedback">
+            URL is required.
+        </div>
+      </div>
+    </td>
+    <td>
+      <label class="sr-only" for="inputTitle">Title</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><span class="oi oi-text"></span></div>
+        </div>
+        <input type="text" class="form-control" id="inputTitle" 
+          formControlName="title" 
+          placeholder="Title">
+      </div>
+    </td>
+    <td>  
+      <div class="btn-group btn-group-sm" role="group" aria-label="Actions" *ngIf="editable">
+        <button (click)="saveEditedItem()" class="btn btn-outline-primary"><span class="oi oi-circle-check"></span></button>
+        <button (click)="edited=false" class="btn btn-outline-secondary"><span class="oi oi-circle-x"></span></button>
+      </div>
+    </td>
+  </ng-container>
+</ng-container>

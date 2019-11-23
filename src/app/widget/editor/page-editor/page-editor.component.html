@@ -1,0 +1,44 @@
+
+<form [formGroup]="pageForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+  <h4>Title</h4>
+  <div class="form-group">
+    <input type="text" class="form-control" [class.is-invalid]="title.status=='INVALID' && (title.dirty || title.touched)" 
+      id="inputPageTitle" placeholder="Title" formControlName="title" required>
+    <div class="invalid-feedback">
+      Title is required.
+    </div>
+  </div>
+  <h4>Visibility</h4>
+  <div class="form-group">
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="policy" id="radioVisibilityPublic" value="PUBLIC" formControlName="policy">
+      <label class="form-check-label" for="radioVisibilityPublic"><span class="oi oi-lock-unlocked"></span> Public</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="policy" id="radioVisibilityPrivate" value="PRIVATE" formControlName="policy">
+      <label class="form-check-label" for="radioVisibilityPrivate"><span class="oi oi-lock-locked"></span> Private</label>
+    </div>
+  </div>
+  <h4>Template</h4>
+  <div class="form-group">
+    <select class="form-control" id="selectTemplateID" formControlName="templateID">
+      <option value="micro-blog">Micro-blog</option>
+      <option value="url-list">URL list</option>
+    </select>
+  </div>
+  <ng-container *ngIf="createMode">
+    <button type="submit" class="btn btn-primary" [disabled]="pageForm.status!=='VALID'">Create</button>
+  </ng-container>
+  <ng-container *ngIf="!createMode">
+    <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="pageForm.status!=='VALID'">
+        <span class="oi oi-circle-check"></span> Save
+      </button>
+      <button (click)="onCancel()" class="btn btn-outline-secondary">
+        <span class="oi oi-circle-x"></span> Cancel
+      </button>
+    </div>
+    
+  </ng-container>
+  
+</form>

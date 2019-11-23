@@ -1,0 +1,29 @@
+<div class="container">
+  <app-user-navbar [user]="user"></app-user-navbar>
+    
+  <div class="panel"> 
+    <h2>User details</h2>
+
+    <h4>Name</h4>
+    <input type="text" readonly class="form-control-plaintext" id="staticName" value="{{user.name}}">
+    
+    <h4>Email</h4>
+    <input type="text" readonly class="form-control-plaintext" id="staticName" value="{{user.email}}">
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+      <h4>Alias</h4>
+      <div class="form-group">
+        <input type="text" class="form-control" [class.is-invalid]="alias.status=='INVALID' && (alias.dirty || alias.touched)" 
+          id="inputAlias" placeholder="Alias" formControlName="alias" required>
+        <div class="invalid-feedback">
+          Alias is required.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="userForm.status!=='VALID'">Save changes</button>
+    </form>
+  </div>
+
+  <app-footer></app-footer>
+</div>
+
