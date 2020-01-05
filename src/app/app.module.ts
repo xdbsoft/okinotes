@@ -72,7 +72,7 @@ import { ItemListComponent } from './widget/url-list/item-list/item-list.compone
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}, 
-    { provide: OAuthStorage, useFactory: () => { return sessionStorage; } },
+    { provide: OAuthStorage, useFactory: () => { return localStorage; } },
     Title
   ],
   bootstrap: [AppComponent]
