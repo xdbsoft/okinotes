@@ -17,17 +17,21 @@ export class NavbarComponent implements OnInit {
   @Output()
   logout: EventEmitter<any> = new EventEmitter();
 
+  navbarCollapsed : boolean = true;
+
   constructor() { }
 
   ngOnInit() {
   }
 
   onLogin() {
+    this.navbarCollapsed = true;
     this.login.emit(null);
     return false;
   }
 
   onLogout() {
+    this.navbarCollapsed = true;
     this.logout.emit(null);
     return false;
   }
